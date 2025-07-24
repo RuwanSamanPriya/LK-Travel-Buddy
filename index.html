@@ -65,17 +65,7 @@
         <a href="#destinations" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">Destinations</a>
         <a href="#testimonials" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">Contact</a>
     </div>
-<!-- News/Updates Section - Content will be loaded by JavaScript -->
-        <section id="news-updates" class="bg-blue-50 text-blue-800 py-4 px-6 md:px-12 rounded-lg mx-auto my-4 max-w-6xl shadow-md flex flex-col md:flex-row items-center justify-between">
-            <div class="flex items-center mb-4 md:mb-0">
-                <svg class="w-6 h-6 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM9.555 7.168A1 1 0 008 8v4a1 1 0 102 0V8a1 1 0 00-.445-.832l-.002-.001-.001-.001-.001-.001-.002-.001A.5.5 0 019.5 7h.001a.5.5 0 01.447.236l.002.001.001.001.001.001.002.001z" clip-rule="evenodd"></path></svg>
-                <p class="font-semibold text-lg">Latest Sri Lanka Tourism News:</p>
-            </div>
-            <div id="news-content" class="flex items-center flex-col md:flex-row text-center md:text-left">
-                <!-- News content will be inserted here by JavaScript -->
-                <p class="text-md text-gray-600">Loading latest news...</p>
-            </div>
-        </section>
+
     <!-- Hero Section -->
     <section id="home" class="hero-gradient text-white py-20 px-6 md:px-12 flex flex-col items-center justify-center text-center rounded-b-xl shadow-lg">
         <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">Your Journey to Sri Lanka Starts Here</h1>
@@ -250,47 +240,6 @@
                 mobileMenu.classList.add('hidden');
             });
         });
-        // JavaScript to fetch and display news
-            document.addEventListener('DOMContentLoaded', () => {
-                const newsContentDiv = document.getElementById('news-content');
-                // Replace with the RSS-to-JSON API URL you get from rss2json.com
-                // For example, using Travel And Tour World's tourism news feed
-                const RSS_FEED_URL = 'API call : https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Foveratours.com%2Ffeed';
-
-                fetch(RSS_FEED_URL)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'ok' && data.items.length > 0) {
-                            // Get the latest news item
-                            const latestNews = data.items[0];
-                            const title = latestNews.title;
-                            const link = latestNews.link;
-                            // Attempt to find an image in the description or content
-                            let imageUrl = 'https://placehold.co/80x50/ADD8E6/000?text=News'; // Default placeholder
-
-                            // Regex to find an image URL in the content/description
-                            const imgMatch = latestNews.description.match(/<img[^>]+src="([^">]+)"/);
-                            if (imgMatch && imgMatch[1]) {
-                                imageUrl = imgMatch[1];
-                            } else if (latestNews.enclosure && latestNews.enclosure.link) {
-                                // Some feeds use 'enclosure' for images
-                                imageUrl = latestNews.enclosure.link;
-                            }
-
-                            newsContentDiv.innerHTML = `
-                                <img src="${imageUrl}" alt="${title}" class="w-20 h-12 object-cover rounded-md mr-3 mb-2 md:mb-0">
-                                <p class="text-md mr-4">${title}</p>
-                                <a href="${link}" target="_blank" class="text-blue-600 hover:underline font-medium whitespace-nowrap">Read More &rarr;</a>
-                            `;
-                        } else {
-                            newsContentDiv.innerHTML = '<p class="text-md text-gray-600">Could not load news at this time. Please check back later.</p>';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching news:', error);
-                        newsContentDiv.innerHTML = '<p class="text-md text-red-600">Failed to load news. Please try again later.</p>';
-                    });
-            });
     </script>
 </body>
 </html>

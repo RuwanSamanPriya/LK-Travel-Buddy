@@ -14,7 +14,8 @@
             background-color: #f8fafc; /* Light blue-gray background */
         }
         /* Custom styles for gradients and shadows */
-        .hero-gradient {            /* Changed from background-color to background-image */
+        .hero-gradient {
+            /* Changed from background-color to background-image */
             background-image: url('https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/46941e204b6a44a97d667016e145b1c0cffe3c84/image/9%20arch.jpg'); /* Replace with your image URL from GitHub */
             background-size: cover; /* Ensures the image covers the entire section */
             background-position: center; /* Centers the image within the section */
@@ -37,6 +38,104 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
         }
+        .package-card {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            flex-direction: column; /* Allow content to stack */
+            justify-content: space-between; /* Push bottom content to bottom */
+            padding: 1.5rem;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            min-height: 180px; /* Ensure cards have a minimum height */
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+            border-radius: 0.5rem;
+            z-index: 1; /* Ensure overlay is above background image but below text */
+        }
+        .package-card h3 {
+            position: relative;
+            z-index: 10;
+            font-size: 1.125rem; /* text-lg for smaller cards */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 0.5rem; /* Space between title and label */
+        }
+        .package-card .details-label {
+            position: relative;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500;
+            align-self: flex-start; /* Align to bottom-left */
+            margin-top: auto; /* Push to bottom */
+        }
+        /* Style for the breakdown button */
+        .toggle-breakdown-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem; /* rounded-md */
+            font-weight: 600; /* font-semibold */
+            background-color: #4F46E5; /* indigo-600 */
+            color: white;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none; /* Remove default button border */
+        }
+        .toggle-breakdown-btn:hover {
+            background-color: #4338CA; /* indigo-700 */
+        }
+        .toggle-breakdown-btn svg {
+            transition: transform 0.3s ease;
+        }
+        .toggle-breakdown-btn.rotated svg {
+            transform: rotate(180deg);
+        }
+        .breakdown-content {
+            padding-left: 1rem; /* Indent content */
+            border-left: 3px solid #6366f1; /* Border for visual separation */
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+        }
+        .breakdown-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .breakdown-content ul li {
+            margin-bottom: 0.25rem;
+        }
+        .breakdown-content h4 {
+            font-weight: 600; /* font-semibold */
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        /* Nested list styling for breakdown */
+        .list-circle {
+            list-style-type: circle;
+        }
+        .list-square {
+            list-style-type: square;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -46,6 +145,7 @@
         <div class="text-2xl font-bold text-indigo-600">LK Travel Buddy</div>
         <div class="hidden md:flex space-x-8">
             <a href="#home" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-300">Home</a>
+            <a href="#packages" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-300">Packages</a>
             <a href="#services" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-300">Services</a>
             <a href="#destinations" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-300">Destinations</a>
             <a href="#testimonials" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-300">Contact</a>
@@ -61,6 +161,7 @@
     <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg py-4 rounded-b-lg">
         <a href="#home" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">Home</a>
+        <a href="#packages" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">Packages</a>
         <a href="#services" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">Services</a>
         <a href="#destinations" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">Destinations</a>
         <a href="#testimonials" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">Contact</a>
@@ -70,7 +171,84 @@
     <section id="home" class="hero-gradient text-white py-20 px-6 md:px-12 flex flex-col items-center justify-center text-center rounded-b-xl shadow-lg">
         <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">Your Journey to Sri Lanka Starts Here</h1>
         <p class="text-lg md:text-xl mb-8 max-w-2xl">Discover the wonders of Sri Lanka and create unforgettable memories with LK Travel Buddy.</p>
-        <a href="#contact" class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300">Plan Your Adventure</a>
+        <a href="#packages" class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300">Explore Our Packages</a>
+    </section>
+
+    <!-- Travel Packages Section -->
+    <section id="packages" class="py-16 px-6 md:px-12 bg-white rounded-lg mx-auto my-8 max-w-6xl shadow-md">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-indigo-700">Our Exclusive Travel Packages</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <!-- Package Card 1 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('https://raw.githubusercontent.com/RuwanSamanPriya/LK-Travel-Buddy/458f0a6a2bd2f814eb2240b1a994623c6541830b/image/Cmb%20knd%20sig.jpg');" data-package-id="package1">
+                <h3>Package 1: 4 Days - Colombo, Sigiriya, Kandy</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+            <!-- Package Card 2 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('YOUR_PACKAGE_IMAGE_2_URL_HERE');" data-package-id="package2">
+                <h3>Package 2: 7 Days - Colombo, Sigiriya, Kandy, Yala, Galle</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+            <!-- Package Card 3 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('YOUR_PACKAGE_IMAGE_3_URL_HERE');" data-package-id="package3">
+                <h3>Package 3: 11 Days - Cultural & Wildlife Grand Tour</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+            <!-- Package Card 4 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('YOUR_PACKAGE_IMAGE_4_URL_HERE');" data-package-id="package4">
+                <h3>Package 4: 12 Days - Island Explorer with Whale Watching</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+            <!-- Package Card 5 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('YOUR_PACKAGE_IMAGE_5_URL_HERE');" data-package-id="package5">
+                <h3>Package 5: 13 Days - East Coast & Southern Wonders</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+            <!-- Package Card 6 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('YOUR_PACKAGE_IMAGE_6_URL_HERE');" data-package-id="package6">
+                <h3>Package 6: 6 Days - Central Highlands & Southern Coast</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+            <!-- Package Card 7 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('YOUR_PACKAGE_IMAGE_7_URL_HERE');" data-package-id="package7">
+                <h3>Package 7: 8 Days - Kandy, Ella, Yala & Galle</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+            <!-- Package Card 8 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('YOUR_PACKAGE_IMAGE_8_URL_HERE');" data-package-id="package8">
+                <h3>Package 8: 5 Days - Ancient Cities & Kandy</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+            <!-- Package Card 9 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('YOUR_PACKAGE_IMAGE_9_URL_HERE');" data-package-id="package9">
+                <h3>Package 9: 6 Days - Central & Wildlife Adventure</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+            <!-- Package Card 10 -->
+            <a href="#package-details" class="package-card rounded-lg overflow-hidden shadow-md" style="background-image: url('YOUR_PACKAGE_IMAGE_10_URL_HERE');" data-package-id="package10">
+                <h3>Package 10: 6 Days - Kandy, Yala & Mirissa</h3>
+                <span class="details-label">Click here for details</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Package Details Section -->
+    <section id="package-details" class="py-16 px-6 md:px-12 bg-gray-100 rounded-lg mx-auto my-8 max-w-6xl shadow-md hidden">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-indigo-700">Package Details</h2>
+        <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg card-shadow">
+            <h3 id="package-detail-title" class="text-2xl font-bold mb-4 text-gray-900"></h3>
+            <div id="package-detail-guest-content" class="text-gray-700 mb-4">
+                <p>Select a package above to view its detailed itinerary and inclusions.</p>
+            </div>
+            <div id="package-detail-admin-breakdown" class="text-gray-700 mb-4 hidden">
+                <!-- Admin-only breakdown will be inserted here -->
+            </div>
+            <p class="text-gray-600">For booking inquiries, please use the <a href="#contact" class="text-indigo-600 hover:underline">Contact Section</a> below.</p>
+            <div class="text-center mt-6">
+                <a href="https://forms.gle/YMTZuoRYcoaNbxDs9" target="_blank" class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300">
+                    Book Now
+                </a>
+            </div>
+        </div>
     </section>
 
     <!-- Services Section -->
@@ -110,7 +288,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <!-- Destination Card 1: Colombo -->
             <div class="bg-white rounded-lg overflow-hidden card-shadow card-hover">
-                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/c1f1614556a2bf68c0a5ccba768fed2d42efd367/image/Colombo.jpg">
+                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/c1f1614556a2bf68c0a5ccba768fed2d42efd367/image/Colombo.jpg" alt="Vibrant Colombo city skyline" class="w-full h-48 object-cover">
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2 text-gray-900">Colombo</h3>
                     <p class="text-gray-600 mb-4">The vibrant capital city, blending modern life with colonial charm.</p>
@@ -119,7 +297,7 @@
             </div>
             <!-- Destination Card 2: Kandy -->
             <div class="bg-white rounded-lg overflow-hidden card-shadow card-hover">
-                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/c1f1614556a2bf68c0a5ccba768fed2d42efd367/image/Kandy.jpg">
+                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/c1f1614556a2bf68c0a5ccba768fed2d42efd367/image/Kandy.jpg" alt="Scenic Kandy lake with Temple of the Tooth" class="w-full h-48 object-cover">
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2 text-gray-900">Kandy</h3>
                     <p class="text-gray-600 mb-4">Home to the sacred Temple of the Tooth Relic and lush botanical gardens.</p>
@@ -128,7 +306,7 @@
             </div>
             <!-- Destination Card 3: Galle -->
             <div class="bg-white rounded-lg overflow-hidden card-shadow card-hover">
-                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/c1f1614556a2bf68c0a5ccba768fed2d42efd367/image/Galle.jpg">
+                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/c1f1614556a2bf68c0a5ccba768fed2d42efd367/image/Galle.jpg" alt="Historic Galle Fort walls and lighthouse" class="w-full h-48 object-cover">
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2 text-gray-900">Galle</h3>
                     <p class="text-gray-600 mb-4">A historic city with a well-preserved Dutch Fort, a UNESCO World Heritage site.</p>
@@ -137,7 +315,7 @@
             </div>
             <!-- Destination Card 4: Nuwara Eliya -->
             <div class="bg-white rounded-lg overflow-hidden card-shadow card-hover">
-                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/c1f1614556a2bf68c0a5ccba768fed2d42efd367/image/Nuwara%20Eliya.jpg">
+                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/c1f1614556a2bf68c0a5ccba768fed2d42efd367/image/Nuwara%20Eliya.jpg" alt="Tea plantations in Nuwara Eliya" class="w-full h-48 object-cover">
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2 text-gray-900">Nuwara Eliya</h3>
                     <p class="text-gray-600 mb-4">The "Little England" of Sri Lanka, known for its tea plantations and cool climate.</p>
@@ -146,7 +324,7 @@
             </div>
             <!-- Destination Card 5: Anuradhapura -->
             <div class="bg-white rounded-lg overflow-hidden card-shadow card-hover">
-                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/refs/heads/main/image/Anuradhapura.jpg">
+                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/refs/heads/main/image/Anuradhapura.jpg" alt="Ancient stupa in Anuradhapura" class="w-full h-48 object-cover">
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2 text-gray-900">Anuradhapura</h3>
                     <p class="text-gray-600 mb-4">Ancient city with well-preserved ruins of an early Sri Lankan civilization.</p>
@@ -155,7 +333,7 @@
             </div>
             <!-- Destination Card 6: Sigiriya -->
             <div class="bg-white rounded-lg overflow-hidden card-shadow card-hover">
-                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/refs/heads/main/image/Sigiriya.jpg">
+                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/refs/heads/main/image/Sigiriya.jpg" alt="Majestic Sigiriya Lion Rock Fortress" class="w-full h-48 object-cover">
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2 text-gray-900">Sigiriya</h3>
                     <p class="text-gray-600 mb-4">The magnificent Lion Rock Fortress, an ancient palace and fortress.</p>
@@ -164,7 +342,7 @@
             </div>
             <!-- Destination Card 7: Yala -->
             <div class="bg-white rounded-lg overflow-hidden card-shadow card-hover">
-                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/refs/heads/main/image/Yala%20National%20Park.jpg">
+                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/refs/heads/main/image/Yala%20National%20Park.jpg" alt="Leopard in Yala National Park" class="w-full h-48 object-cover">
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2 text-gray-900">Yala National Park</h3>
                     <p class="text-gray-600 mb-4">Famous for its wildlife, especially leopards and elephants.</p>
@@ -173,7 +351,7 @@
             </div>
             <!-- Destination Card 8: Mirissa -->
             <div class="bg-white rounded-lg overflow-hidden card-shadow card-hover">
-                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/refs/heads/main/image/Mirissa.jpg">
+                <img src="https://raw.githubusercontent.com/ruwanjayallath/LK-Travel-Buddy/refs/heads/main/image/Mirissa.jpg" alt="Beautiful Mirissa beach at sunset" class="w-full h-48 object-cover">
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2 text-gray-900">Mirissa</h3>
                     <p class="text-gray-600 mb-4">A popular coastal town known for whale watching and beautiful beaches.</p>
@@ -221,6 +399,9 @@
         <div class="flex justify-center space-x-6 mt-4">
             <a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a>
             <a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a>
+            <button id="toggle-admin-mode" class="text-gray-400 hover:text-white transition duration-300 focus:outline-none">
+                Toggle Admin Mode
+            </button>
         </div>
     </footer>
 
@@ -231,6 +412,12 @@
 
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            // Adjust body overflow when mobile menu is open/closed
+            if (mobileMenu.classList.contains('hidden')) {
+                document.body.style.overflow = '';
+            } else {
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            }
         });
 
         // Close mobile menu when a link is clicked
@@ -238,8 +425,1035 @@
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                document.body.style.overflow = ''; // Restore scrolling
             });
         });
+
+        // Admin Mode State (persisted in localStorage)
+        let isAdmin = localStorage.getItem('isAdminMode') === 'true';
+
+        // Data for packages
+        const packagesData = {
+            'package1': {
+                name: 'Package 1: 4 Days - Colombo, Sigiriya, Kandy',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Sigiriya, Kandy, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $1,912.57</p>
+                    <p><strong>Total Distance:</strong> ~376 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Sigiriya (1 night x 2 rooms)</li>
+                                <li>Kandy (1 night x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $910.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Sigiriya (1 night x 2 rooms): $245.00</li>
+                                <li>Kandy (1 night x 2 rooms): $245.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $252.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid): $105.00</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid): $24.50</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $54.72
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (4 days x $8.45/day): $33.80</li>
+                                <li>Express Way Charges and Parking (4 days x $4.22/day): $16.88</li>
+                                <li>Guide or Driver Refreshments (4 days x $1.01/day): $4.04</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $169.20</li>
+                        <li><strong>Markup & Tax:</strong> $526.65</li>
+                    </ul>
+                `
+            },
+            'package2': {
+                name: 'Package 2: 7 Days - Colombo, Sigiriya, Kandy, Yala, Galle',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Sigiriya, Kandy, Yala National Park, Galle, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $4,525.31</p>
+                    <p><strong>Total Distance:</strong> ~781 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Sigiriya (1 night x 2 rooms)</li>
+                                <li>Kandy (1 night x 2 rooms)</li>
+                                <li>Yala National Park (2 nights x 2 rooms)</li>
+                                <li>Galle (1 night x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $2,440.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Sigiriya (1 night x 2 rooms): $245.00</li>
+                                <li>Kandy (1 night x 2 rooms): $245.00</li>
+                                <li>Yala National Park (2 nights x 2 rooms): $1,180.00</li>
+                                <li>Galle (1 night x 2 rooms): $350.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $392.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid): $105.00</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid): $24.50</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid): $140.00</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $95.76
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (7 days x $8.45/day): $59.15</li>
+                                <li>Express Way Charges and Parking (7 days x $4.22/day): $29.54</li>
+                                <li>Guide or Driver Refreshments (7 days x $1.01/day): $7.07</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $351.45</li>
+                        <li><strong>Markup & Tax:</strong> $1,246.10</li>
+                    </ul>
+                `
+            },
+            'package3': {
+                name: 'Package 3: 11 Days - Cultural & Wildlife Grand Tour',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Anuradhapura, Sigiriya, Kandy, Nuwara Eliya, Ella, Yala National Park, Galle, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $6,701.53</p>
+                    <p><strong>Total Distance:</strong> ~886 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Anuradhapura (1 night x 2 rooms)</li>
+                                <li>Sigiriya (1 night x 2 rooms)</li>
+                                <li>Kandy (1 night x 2 rooms)</li>
+                                <li>Nuwara Eliya (1 night x 2 rooms)</li>
+                                <li>Ella (2 nights x 2 rooms)</li>
+                                <li>Yala National Park (2 nights x 2 rooms)</li>
+                                <li>Galle (1 night x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Nuwara Eliya:
+                                    <ul class="list-square ml-6">
+                                        <li>Tea Plantation Tour (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $3,880.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Anuradhapura (1 night x 2 rooms): $245.00</li>
+                                <li>Sigiriya (1 night x 2 rooms): $245.00</li>
+                                <li>Kandy (1 night x 2 rooms): $245.00</li>
+                                <li>Nuwara Eliya (1 night x 2 rooms): $285.00</li>
+                                <li>Ella (2 nights x 2 rooms): $910.00</li>
+                                <li>Yala National Park (2 nights x 2 rooms): $1,180.00</li>
+                                <li>Galle (1 night x 2 rooms): $350.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $427.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid): $105.00</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid): $24.50</li>
+                                    </ul>
+                                </li>
+                                <li>Nuwara Eliya:
+                                    <ul class="list-square ml-6">
+                                        <li>Tea Plantation Tour (3 Adults, 1 Kid): $35.00</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid): $140.00</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $150.48
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (11 days x $8.45/day): $92.95</li>
+                                <li>Express Way Charges and Parking (11 days x $4.22/day): $46.42</li>
+                                <li>Guide or Driver Refreshments (11 days x $1.01/day): $11.11</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $398.70</li>
+                        <li><strong>Markup & Tax:</strong> $1,845.35</li>
+                    </ul>
+                `
+            },
+            'package4': {
+                name: 'Package 4: 12 Days - Island Explorer with Whale Watching',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Anuradhapura, Sigiriya, Kandy, Nuwara Eliya, Ella, Yala National Park, Mirissa, Galle, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $7,297.18</p>
+                    <p><strong>Total Distance:</strong> ~887 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Anuradhapura (1 night x 2 rooms)</li>
+                                <li>Sigiriya (1 night x 2 rooms)</li>
+                                <li>Kandy (1 night x 2 rooms)</li>
+                                <li>Nuwara Eliya (1 night x 2 rooms)</li>
+                                <li>Ella (2 nights x 2 rooms)</li>
+                                <li>Yala National Park (2 nights x 2 rooms)</li>
+                                <li>Mirissa (1 night x 2 rooms)</li>
+                                <li>Galle (1 night x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Nuwara Eliya:
+                                    <ul class="list-square ml-6">
+                                        <li>Tea Plantation Tour (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Mirissa:
+                                    <ul class="list-square ml-6">
+                                        <li>Whale Watching (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $4,105.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Anuradhapura (1 night x 2 rooms): $245.00</li>
+                                <li>Sigiriya (1 night x 2 rooms): $245.00</li>
+                                <li>Kandy (1 night x 2 rooms): $245.00</li>
+                                <li>Nuwara Eliya (1 night x 2 rooms): $285.00</li>
+                                <li>Ella (2 nights x 2 rooms): $910.00</li>
+                                <li>Yala National Park (2 nights x 2 rooms): $1,180.00</li>
+                                <li>Mirissa (1 night x 2 rooms): $225.00</li>
+                                <li>Galle (1 night x 2 rooms): $350.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $619.50
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid): $105.00</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid): $24.50</li>
+                                    </ul>
+                                </li>
+                                <li>Nuwara Eliya:
+                                    <ul class="list-square ml-6">
+                                        <li>Tea Plantation Tour (3 Adults, 1 Kid): $35.00</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid): $140.00</li>
+                                    </ul>
+                                </li>
+                                <li>Mirissa:
+                                    <ul class="list-square ml-6">
+                                        <li>Whale Watching (3 Adults, 1 Kid): $192.50</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $164.16
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (12 days x $8.45/day): $101.40</li>
+                                <li>Express Way Charges and Parking (12 days x $4.22/day): $50.64</li>
+                                <li>Guide or Driver Refreshments (12 days x $1.01/day): $12.12</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $399.15</li>
+                        <li><strong>Markup & Tax:</strong> $2,009.37</li>
+                    </ul>
+                `
+            },
+            'package5': {
+                name: 'Package 5: 13 Days - East Coast & Southern Wonders',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Anuradhapura, Sigiriya, Kandy, Nuwara Eliya, Ella, Arugam Bay, Yala National Park, Mirissa, Galle, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $7,663.82</p>
+                    <p><strong>Total Distance:</strong> ~1047 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Anuradhapura (1 night x 2 rooms)</li>
+                                <li>Sigiriya (1 night x 2 rooms)</li>
+                                <li>Kandy (1 night x 2 rooms)</li>
+                                <li>Nuwara Eliya (1 night x 2 rooms)</li>
+                                <li>Ella (2 nights x 2 rooms)</li>
+                                <li>Arugam Bay (1 night x 2 rooms)</li>
+                                <li>Yala National Park (2 nights x 2 rooms)</li>
+                                <li>Mirissa (1 night x 2 rooms)</li>
+                                <li>Galle (1 night x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Nuwara Eliya:
+                                    <ul class="list-square ml-6">
+                                        <li>Tea Plantation Tour (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Mirissa:
+                                    <ul class="list-square ml-6">
+                                        <li>Whale Watching (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $4,285.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Anuradhapura (1 night x 2 rooms): $245.00</li>
+                                <li>Sigiriya (1 night x 2 rooms): $245.00</li>
+                                <li>Kandy (1 night x 2 rooms): $245.00</li>
+                                <li>Nuwara Eliya (1 night x 2 rooms): $285.00</li>
+                                <li>Ella (2 nights x 2 rooms): $910.00</li>
+                                <li>Arugam Bay (1 night x 2 rooms): $180.00</li>
+                                <li>Yala National Park (2 nights x 2 rooms): $1,180.00</li>
+                                <li>Mirissa (1 night x 2 rooms): $225.00</li>
+                                <li>Galle (1 night x 2 rooms): $350.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $619.50
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid): $105.00</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid): $24.50</li>
+                                    </ul>
+                                </li>
+                                <li>Nuwara Eliya:
+                                    <ul class="list-square ml-6">
+                                        <li>Tea Plantation Tour (3 Adults, 1 Kid): $35.00</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid): $140.00</li>
+                                    </ul>
+                                </li>
+                                <li>Mirissa:
+                                    <ul class="list-square ml-6">
+                                        <li>Whale Watching (3 Adults, 1 Kid): $192.50</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $177.84
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (13 days x $8.45/day): $109.85</li>
+                                <li>Express Way Charges and Parking (13 days x $4.22/day): $54.86</li>
+                                <li>Guide or Driver Refreshments (13 days x $1.01/day): $13.13</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $471.15</li>
+                        <li><strong>Markup & Tax:</strong> $2,110.33</li>
+                    </ul>
+                `
+            },
+            'package6': {
+                name: 'Package 6: 6 Days - Central Highlands & Southern Coast',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Kandy, Ella, Galle, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $3,325.98</p>
+                    <p><strong>Total Distance:</strong> ~569 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Kandy (1 night x 2 rooms)</li>
+                                <li>Ella (2 nights x 2 rooms)</li>
+                                <li>Galle (1 night x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $1,925.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Kandy (1 night x 2 rooms): $245.00</li>
+                                <li>Ella (2 nights x 2 rooms): $910.00</li>
+                                <li>Galle (1 night x 2 rooms): $350.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $147.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid): $24.50</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $82.08
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (6 days x $8.45/day): $50.70</li>
+                                <li>Express Way Charges and Parking (6 days x $4.22/day): $25.32</li>
+                                <li>Guide or Driver Refreshments (6 days x $1.01/day): $6.06</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $256.05</li>
+                        <li><strong>Markup & Tax:</strong> $915.85</li>
+                    </ul>
+                `
+            },
+            'package7': {
+                name: 'Package 7: 8 Days - Kandy, Ella, Yala & Galle',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Kandy, Ella, Yala National Park, Galle, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $5,227.56</p>
+                    <p><strong>Total Distance:</strong> ~637 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Kandy (1 night x 2 rooms)</li>
+                                <li>Ella (2 nights x 2 rooms)</li>
+                                <li>Yala National Park (2 nights x 2 rooms)</li>
+                                <li>Galle (1 night x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $3,105.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Kandy (1 night x 2 rooms): $245.00</li>
+                                <li>Ella (2 nights x 2 rooms): $910.00</li>
+                                <li>Yala National Park (2 nights x 2 rooms): $1,180.00</li>
+                                <li>Galle (1 night x 2 rooms): $350.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $287.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid): $24.50</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid): $140.00</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $109.44
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (8 days x $8.45/day): $67.60</li>
+                                <li>Express Way Charges and Parking (8 days x $4.22/day): $33.76</li>
+                                <li>Guide or Driver Refreshments (8 days x $1.01/day): $8.08</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $286.65</li>
+                        <li><strong>Markup & Tax:</strong> $1,439.47</li>
+                    </ul>
+                `
+            },
+            'package8': {
+                name: 'Package 8: 5 Days - Ancient Cities & Kandy',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Anuradhapura, Sigiriya, Kandy, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $2,337.86</p>
+                    <p><strong>Total Distance:</strong> ~486 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Anuradhapura (1 night x 2 rooms)</li>
+                                <li>Sigiriya (1 night x 2 rooms)</li>
+                                <li>Kandy (1 night x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $1,155.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Anuradhapura (1 night x 2 rooms): $245.00</li>
+                                <li>Sigiriya (1 night x 2 rooms): $245.00</li>
+                                <li>Kandy (1 night x 2 rooms): $245.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $252.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Sigiriya:
+                                    <ul class="list-square ml-6">
+                                        <li>Sigiriya Rock Fortress (3 Adults, 1 Kid): $105.00</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid): $24.50</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $68.40
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (5 days x $8.45/day): $42.25</li>
+                                <li>Express Way Charges and Parking (5 days x $4.22/day): $21.10</li>
+                                <li>Guide or Driver Refreshments (5 days x $1.01/day): $5.05</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $218.70</li>
+                        <li><strong>Markup & Tax:</strong> $643.76</li>
+                    </ul>
+                `
+            },
+            'package9': {
+                name: 'Package 9: 6 Days - Central & Wildlife Adventure',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Nuwara Eliya, Arugam Bay, Yala National Park, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $3,846.72</p>
+                    <p><strong>Total Distance:</strong> ~762 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Nuwara Eliya (1 night x 2 rooms)</li>
+                                <li>Arugam Bay (1 night x 2 rooms)</li>
+                                <li>Yala National Park (2 nights x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Nuwara Eliya:
+                                    <ul class="list-square ml-6">
+                                        <li>Tea Plantation Tour (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $2,065.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Nuwara Eliya (1 night x 2 rooms): $285.00</li>
+                                <li>Arugam Bay (1 night x 2 rooms): $180.00</li>
+                                <li>Yala National Park (2 nights x 2 rooms): $1,180.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $297.50
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Nuwara Eliya:
+                                    <ul class="list-square ml-6">
+                                        <li>Tea Plantation Tour (3 Adults, 1 Kid): $35.00</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid): $140.00</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $82.08
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (6 days x $8.45/day): $50.70</li>
+                                <li>Express Way Charges and Parking (6 days x $4.22/day): $25.32</li>
+                                <li>Guide or Driver Refreshments (6 days x $1.01/day): $6.06</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $342.90</li>
+                        <li><strong>Markup & Tax:</strong> $1,059.24</li>
+                    </ul>
+                `
+            },
+            'package10': {
+                name: 'Package 10: 6 Days - Kandy, Yala & Mirissa',
+                guestDetails: `
+                    <p><strong>Route:</strong> Colombo, Kandy, Yala National Park, Mirissa, Colombo</p>
+                    <p><strong>Total Tour Cost:</strong> $4,017.84</p>
+                    <p><strong>Total Distance:</strong> ~622 km</p>
+                    <h4 class="font-semibold mt-4 mb-2">Itinerary & Inclusions:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms)</li>
+                                <li>Kandy (1 night x 2 rooms)</li>
+                                <li>Yala National Park (2 nights x 2 rooms)</li>
+                                <li>Mirissa (1 night x 2 rooms)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong>
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid)</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                                <li>Mirissa:
+                                    <ul class="list-square ml-6">
+                                        <li>Whale Watching (3 Adults, 1 Kid)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                `,
+                adminBreakdown: `
+                    <h4>Cost Breakdown:</h4>
+                    <ul class="list-disc ml-6 mb-2">
+                        <li><strong>Accommodation:</strong> $2,070.00
+                            <ul class="list-circle ml-6">
+                                <li>Colombo (2 nights x 2 rooms): $420.00</li>
+                                <li>Kandy (1 night x 2 rooms): $245.00</li>
+                                <li>Yala National Park (2 nights x 2 rooms): $1,180.00</li>
+                                <li>Mirissa (1 night x 2 rooms): $225.00</li>
+                            </ul>
+                        </li>
+                        <li><strong>Activities:</strong> $479.50
+                            <ul class="list-circle ml-6">
+                                <li>Colombo:
+                                    <ul class="list-square ml-6">
+                                        <li>National Museum (3 Adults, 1 Kid): $35.00</li>
+                                        <li>Lotus Tower (3 Adults, 1 Kid): $87.50</li>
+                                    </ul>
+                                </li>
+                                <li>Kandy:
+                                    <ul class="list-square ml-6">
+                                        <li>Temple of the Tooth (3 Adults, 1 Kid): $24.50</li>
+                                    </ul>
+                                </li>
+                                <li>Yala National Park:
+                                    <ul class="list-square ml-6">
+                                        <li>Yala Safari Entrance (3 Adults, 1 Kid): $140.00</li>
+                                    </ul>
+                                </li>
+                                <li>Mirissa:
+                                    <ul class="list-square ml-6">
+                                        <li>Whale Watching (3 Adults, 1 Kid): $192.50</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Standard Fees:</strong> $82.08
+                            <ul class="list-circle ml-6">
+                                <li>Driver Bata (6 days x $8.45/day): $50.70</li>
+                                <li>Express Way Charges and Parking (6 days x $4.22/day): $25.32</li>
+                                <li>Guide or Driver Refreshments (6 days x $1.01/day): $6.06</li>
+                            </ul>
+                        </li>
+                        <li><strong>Transport:</strong> $279.90</li>
+                        <li><strong>Markup & Tax:</strong> $1,106.36</li>
+                    </ul>
+                `
+            }
+        };
+
+        function showPackageDetails(packageId) {
+            const packageDetailsSection = document.getElementById('package-details');
+            const packageDetailTitle = document.getElementById('package-detail-title');
+            const packageDetailGuestContent = document.getElementById('package-detail-guest-content');
+            const packageDetailAdminBreakdown = document.getElementById('package-detail-admin-breakdown');
+
+            const package = packagesData[packageId];
+
+            if (package) {
+                packageDetailTitle.textContent = package.name;
+                packageDetailGuestContent.innerHTML = package.guestDetails;
+
+                // Clear previous admin breakdown content
+                packageDetailAdminBreakdown.innerHTML = '';
+
+                if (isAdmin) {
+                    packageDetailAdminBreakdown.innerHTML = `
+                        <button class="toggle-breakdown-btn mt-4">
+                            View Itinerary & Breakdown
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="breakdown-content hidden mt-4 text-gray-800">
+                            ${package.adminBreakdown}
+                        </div>
+                    `;
+                    // Attach event listener to the newly created toggle button
+                    const toggleButton = packageDetailAdminBreakdown.querySelector('.toggle-breakdown-btn');
+                    if (toggleButton) {
+                        toggleButton.addEventListener('click', () => {
+                            const breakdownContent = toggleButton.nextElementSibling;
+                            if (breakdownContent) {
+                                breakdownContent.classList.toggle('hidden');
+                                toggleButton.classList.toggle('rotated');
+                            }
+                        });
+                    }
+                    packageDetailAdminBreakdown.classList.remove('hidden');
+                } else {
+                    packageDetailAdminBreakdown.classList.add('hidden');
+                }
+
+                packageDetailsSection.classList.remove('hidden'); // Show the details section
+                packageDetailsSection.scrollIntoView({ behavior: 'smooth' }); // Scroll to it
+            } else {
+                packageDetailTitle.textContent = 'Package Not Found';
+                packageDetailGuestContent.innerHTML = '<p>Details for this package are not available.</p>';
+                packageDetailAdminBreakdown.classList.add('hidden'); // Ensure admin breakdown is hidden
+                packageDetailsSection.classList.remove('hidden');
+                packageDetailsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Attach click listeners to package cards
+        document.querySelectorAll('.package-card').forEach(card => {
+            card.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default anchor behavior
+                const packageId = card.dataset.packageId; // Get the package ID from data-package-id attribute
+                showPackageDetails(packageId);
+            });
+        });
+
+        // Admin Mode Toggle Logic
+        const toggleAdminModeButton = document.getElementById('toggle-admin-mode');
+
+        toggleAdminModeButton.addEventListener('click', () => {
+            isAdmin = !isAdmin; // Toggle the state
+            localStorage.setItem('isAdminMode', isAdmin); // Persist state in local storage
+            updateAdminModeDisplay(); // Update current view if a package is open
+        });
+
+        // Function to update the display based on admin mode
+        function updateAdminModeDisplay() {
+            const packageDetailsSection = document.getElementById('package-details');
+            if (!packageDetailsSection.classList.contains('hidden')) {
+                // If a package details section is currently visible, re-render it
+                const currentPackageTitle = document.getElementById('package-detail-title').textContent;
+                // Find the packageId from the current title
+                const currentPackage = Object.keys(packagesData).find(key => packagesData[key].name === currentPackageTitle);
+                if (currentPackage) {
+                    showPackageDetails(currentPackage); // Re-call to update visibility
+                }
+            }
+        }
+
+        // Initial check for admin mode on page load
+        document.addEventListener('DOMContentLoaded', updateAdminModeDisplay);
     </script>
 </body>
 </html>
